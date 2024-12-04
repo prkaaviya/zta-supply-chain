@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: distribution-service
+  namespace: distribution
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: distribution
+  template:
+    metadata:
+      labels:
+        app: distribution
+    spec:
+      containers:
+      - name: distribution
+        image: yolo699/ubuntu-zt:latest
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash", "-c", "while true; do echo 'Running Ubuntu Container'; sleep 10; done"] # Keeps the container running
+        ports:
+        - containerPort: 80
+

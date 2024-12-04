@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: procurement-service
+  namespace: procurement
+  labels:
+    app: procurement
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+spec:
+  type: ClusterIP
+  selector:
+    app: procurement
+  ports:
+    - name: http                       # Name for HTTP port
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: grpc                       # Name for gRPC port
+      protocol: TCP
+      port: 50051
+      targetPort: 50051
+    - name: metrics                    # Name for Prometheus metrics port
+      protocol: TCP
+      port: 9100
+      targetPort: 9100
+

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: procurement-service
+  namespace: procurement
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: procurement
+  template:
+    metadata:
+      labels:
+        app: procurement
+      annotations:
+        vault.hashicorp.com/agent-inject: "true" # Enable Vault Agent injection
+        vault.hashicorp.com/role: "procurement-role" # Vault role to authenticate
+        vault.hashicorp.com/agent-inject-secret-db-config: "secret/procurement/db" # Path to the secret in Vault
+    spec:
+      containers:
+      - name: procurement
+        image: yolo699/ubuntu-zt:latest
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash", "-c", "while true; do echo 'Running Ubuntu Container'; sleep 10; done"] # Keeps the container running
+        ports:
+        - containerPort: 80
+
+

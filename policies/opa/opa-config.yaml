@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opa-policies
+  namespace: opa
+data:
+  allow-procurement.rego: |
+    package kubernetes.admission
+
+    default allow = false
+
+    allow {
+      input.request.namespace == "procurement"
+      input.request.operation == "CREATE"
+      input.request.kind.kind == "Pod"
+    }
+
+  allow-logistics.rego: |
+    package kubernetes.admission
+
+    default allow = false
+
+    allow {
+      input.request.namespace == "logistics"
+      input.request.operation == "CREATE"
+      input.request.kind.kind == "Pod"
+    }
+

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logistics-service
+  namespace: logistics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logistics
+  template:
+    metadata:
+      labels:
+        app: logistics
+    spec:
+      containers:
+      - name: logistics
+        image: yolo699/ubuntu-zt:latest
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash", "-c", "while true; do echo 'Running Ubuntu Container'; sleep 10; done"] # Keeps the container running
+        ports:
+        - containerPort: 80

@@ -1,0 +1,8 @@
+{
+  "spiffeId": "spiffe://example.org/procurement",
+  "selector": {
+    "type": "k8s",
+    "value": "ns:procurement"
+  }
+}
+
